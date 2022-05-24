@@ -1,6 +1,7 @@
 plugins {
   id 'com.android.application'
   id 'org.jetbrains.kotlin.android'
+  id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
@@ -36,6 +37,10 @@ android {
 
 dependencies {
 
+  // local
+  implementation project(path: ':domain')
+  implementation project(path: ':data-local')
+
   implementation 'androidx.core:core-ktx:1.7.0'
   implementation 'androidx.appcompat:appcompat:1.4.1'
   implementation 'com.google.android.material:material:1.5.0-alpha04'
@@ -45,4 +50,11 @@ dependencies {
   testImplementation 'junit:junit:4.13.2'
   androidTestImplementation 'androidx.test.ext:junit:1.1.3'
   androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
+  // logcat
+  implementation 'com.squareup.logcat:logcat:0.1'
+
+  // Koin
+  def koin_version = "3.2.0"
+  implementation "io.insert-koin:koin-android:$koin_version"
 }
