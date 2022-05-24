@@ -27,6 +27,7 @@ class CommentViewModel(
             logcat("CommentViewModel - getComments") { "Exception ${it.message}" }
       }
         .collect {
+          logcat("CommentViewModel - getComments") { "comments => ${it.size}" }
           _comments.value = it
         }
     }
