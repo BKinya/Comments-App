@@ -2,6 +2,7 @@ plugins {
   id 'com.android.application'
   id 'org.jetbrains.kotlin.android'
   id 'androidx.navigation.safeargs.kotlin'
+  id 'com.google.gms.google-services'
 }
 
 android {
@@ -61,5 +62,10 @@ dependencies {
   // Lifecycle
   def lifecycleVersion = "2.5.0-rc01"
   implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
+
+  // Firebase
+  implementation platform('com.google.firebase:firebase-bom:30.3.2')
+  implementation 'com.google.firebase:firebase-analytics-ktx'
+  implementation 'com.google.firebase:firebase-config-ktx'
 
 }

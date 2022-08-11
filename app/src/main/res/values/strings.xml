@@ -12,4 +12,5 @@
   <string name="comment_label">Comment</string>
   <string name="save">Save Comment</string>
   <string name="noComments">No Comments</string>
+    <string name="fetch_config">Fetch Config</string>
 </resources>

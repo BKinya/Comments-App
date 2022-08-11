@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defaultsMap>
+    <entry>
+        <key>button_color</key>
+        <value>#607D8B</value>
+    </entry>
+    <entry>
+        <key>add_button_text</key>
+        <value>Add comment</value>
+    </entry>
+    <entry>
+        <key>save_button_text</key>
+        <value>Save Comment</value>
+    </entry>
+    <entry>
+        <key>title_text</key>
+        <value>Comments</value>
+    </entry>
+</defaultsMap>
