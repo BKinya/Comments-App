@@ -6,14 +6,27 @@
     </entry>
     <entry>
         <key>add_button_text</key>
-        <value>Add comment</value>
+        <value>Add a comment</value>
     </entry>
     <entry>
         <key>save_button_text</key>
-        <value>Save Comment</value>
+        <value>Save a Comment</value>
     </entry>
     <entry>
         <key>title_text</key>
         <value>Comments</value>
     </entry>
+    <entry>
+        <key>input_label</key>
+        <value>Enter a Comment</value>
+    </entry>
+    <entry>
+        <key>hint_text</key>
+        <value>Comment</value>
+    </entry>
+    <entry>
+        <key>is_notes</key>
+        <value>false</value>
+    </entry>
+
 </defaultsMap>

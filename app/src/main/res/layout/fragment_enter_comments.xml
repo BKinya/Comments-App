@@ -12,7 +12,7 @@
     android:padding="16dp">
 
   <TextView
-    android:id="@+id/introTextView"
+    android:id="@+id/labelTextView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:layout_constraintTop_toTopOf="parent"
@@ -26,8 +26,8 @@
       android:layout_height="wrap_content"
       android:hint="@string/comment_label"
       style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-      app:layout_constraintTop_toBottomOf="@+id/introTextView"
-      app:layout_constraintStart_toStartOf="@+id/introTextView"
+      app:layout_constraintTop_toBottomOf="@+id/labelTextView"
+      app:layout_constraintStart_toStartOf="@+id/labelTextView"
       app:boxCornerRadiusTopEnd="12dp"
       app:boxCornerRadiusTopStart="12dp"
       app:boxCornerRadiusBottomEnd="12dp"
@@ -43,13 +43,15 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-      android:id="@+id/saveCommentsBtn"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="@string/save"
-      app:layout_constraintTop_toBottomOf="@+id/commentTil"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      android:layout_marginTop="16dp"/>
+        android:id="@+id/saveCommentsBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/save"
+        app:layout_constraintTop_toBottomOf="@+id/commentTil"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
   </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

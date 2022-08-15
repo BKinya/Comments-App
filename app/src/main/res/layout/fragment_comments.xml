@@ -1,68 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  tools:context=".fragments.CommentsFragment"
-  android:background="@color/whiteSmoke">
-
-  <androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:background="@color/whiteSmoke"
+    tools:context=".fragments.CommentsFragment">
 
-    <TextView
-      android:id="@+id/titleTextView"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      android:gravity="center_horizontal"
-      android:text="@string/comments"
-      android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
 
+        <TextView
+            android:id="@+id/titleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_baseline_comment_24"
+            android:drawablePadding="8dp"
+            android:gravity="center_horizontal"
+            android:text="@string/comments"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/fetchConfigButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:text="@string/fetch_config"
-        app:layout_constraintEnd_toStartOf="@id/addCommentsBtn"
-        app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
-    <Button
-        android:id="@+id/addCommentsBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:text="@string/add_comments"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
+        <Button
+            android:id="@+id/addCommentsBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/add_comments"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
 
-    <TextView
-      android:id="@+id/noCommentsTextView"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      android:visibility="gone"
-      android:text="@string/noComments"
-      android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse"/>
+        <TextView
+            android:id="@+id/noCommentsTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="@string/noComments"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-      android:id="@+id/commentsRecyclerView"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      app:layout_constraintTop_toBottomOf="@+id/addCommentsBtn"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"/>
-  </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/commentsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addCommentsBtn" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
