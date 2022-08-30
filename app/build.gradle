@@ -3,6 +3,7 @@ plugins {
   id 'org.jetbrains.kotlin.android'
   id 'androidx.navigation.safeargs.kotlin'
   id 'com.google.gms.google-services'
+  id 'kotlin-kapt'
 }
 
 android {
@@ -38,16 +39,12 @@ android {
 
 dependencies {
 
-  // local
-  implementation project(path: ':domain')
-  implementation project(path: ':data-local')
-
-  implementation 'androidx.core:core-ktx:1.7.0'
-  implementation 'androidx.appcompat:appcompat:1.4.1'
-  implementation 'com.google.android.material:material:1.5.0-alpha04'
-  implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
-  implementation 'androidx.navigation:navigation-fragment-ktx:2.4.2'
-  implementation 'androidx.navigation:navigation-ui-ktx:2.4.2'
+  implementation 'androidx.core:core-ktx:1.8.0'
+  implementation 'androidx.appcompat:appcompat:1.5.0'
+  implementation 'com.google.android.material:material:1.7.0-beta01'
+  implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+  implementation 'androidx.navigation:navigation-fragment-ktx:2.5.1'
+  implementation 'androidx.navigation:navigation-ui-ktx:2.5.1'
   testImplementation 'junit:junit:4.13.2'
   androidTestImplementation 'androidx.test.ext:junit:1.1.3'
   androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
@@ -60,12 +57,19 @@ dependencies {
   implementation "io.insert-koin:koin-android:$koinVersion"
 
   // Lifecycle
-  def lifecycleVersion = "2.5.0-rc01"
+  def lifecycleVersion = "2.6.0-alpha01"
   implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
 
   // Firebase
   implementation platform('com.google.firebase:firebase-bom:30.3.2')
   implementation 'com.google.firebase:firebase-analytics-ktx'
   implementation 'com.google.firebase:firebase-config-ktx'
+
+  // Room
+  def room_version = "2.4.3"
+  implementation "androidx.room:room-runtime:$room_version"
+  kapt "androidx.room:room-compiler:$room_version"
+  implementation("androidx.room:room-ktx:$room_version")
+
 
 }

@@ -17,5 +17,3 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Comments App"
 include ':app'
-include ':data-local'
-include ':domain'

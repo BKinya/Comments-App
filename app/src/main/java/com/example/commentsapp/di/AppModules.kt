@@ -1,12 +1,12 @@
 package com.example.commentsapp.di
 
-import com.example.commentsapp.CommentApplication
-import com.example.commentsapp.viewmodel.CommentViewModel
+import com.example.commentsapp.presentation.CommentApplication
+import com.example.commentsapp.presentation.viewmodel.CommentViewModel
 import com.example.dataLocal.database.CommentsDatabase
 import com.example.dataLocal.repository.CommentRepositoryImpl
-import com.example.domain.repository.CommentRepository
-import com.example.domain.usecases.GetCommentsUseCase
-import com.example.domain.usecases.SaveCommentUseCase
+import com.example.commentsapp.domain.repository.CommentRepository
+import com.example.commentsapp.domain.usecases.GetCommentsUseCase
+import com.example.commentsapp.domain.usecases.SaveCommentUseCase
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
