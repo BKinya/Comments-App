@@ -1,4 +1,4 @@
-package com.example.commentsapp.presentation
+package com.example.commentsapp.presentation.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

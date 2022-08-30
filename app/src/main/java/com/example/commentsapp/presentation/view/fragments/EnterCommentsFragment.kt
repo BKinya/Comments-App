@@ -1,4 +1,4 @@
-package com.example.commentsapp.presentation.fragments
+package com.example.commentsapp.presentation.view.fragments
 
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.graphics.Color
@@ -11,7 +11,7 @@ import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.example.commentsapp.presentation.RemoteConfigUtils
+import com.example.commentsapp.RemoteConfigUtils
 import com.example.commentsapp.databinding.FragmentEnterCommentsBinding
 import com.example.commentsapp.presentation.viewmodel.CommentViewModel
 import logcat.logcat

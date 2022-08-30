@@ -1,4 +1,4 @@
-package com.example.commentsapp.presentation
+package com.example.commentsapp
 
 import android.app.Application
 import com.example.commentsapp.di.diModules

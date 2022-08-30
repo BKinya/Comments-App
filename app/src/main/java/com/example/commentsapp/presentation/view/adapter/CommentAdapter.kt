@@ -1,4 +1,4 @@
-package com.example.commentsapp.presentation.adapter
+package com.example.commentsapp.presentation.view.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

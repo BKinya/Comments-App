@@ -1,7 +1,6 @@
-package com.example.commentsapp.presentation
+package com.example.commentsapp
 
 import android.app.Activity
-import com.example.commentsapp.R
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfig

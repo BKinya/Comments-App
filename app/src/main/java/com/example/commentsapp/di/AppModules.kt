@@ -1,6 +1,6 @@
 package com.example.commentsapp.di
 
-import com.example.commentsapp.presentation.CommentApplication
+import com.example.commentsapp.CommentApplication
 import com.example.commentsapp.presentation.viewmodel.CommentViewModel
 import com.example.dataLocal.database.CommentsDatabase
 import com.example.dataLocal.repository.CommentRepositoryImpl

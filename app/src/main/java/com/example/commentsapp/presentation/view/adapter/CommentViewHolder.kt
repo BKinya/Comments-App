@@ -1,4 +1,4 @@
-package com.example.commentsapp.presentation.adapter
+package com.example.commentsapp.presentation.view.adapter
 
 import androidx.recyclerview.widget.RecyclerView
 import com.example.commentsapp.databinding.CommentLayoutBinding

@@ -1,10 +1,12 @@
-package com.example.commentsapp.presentation.fragments
+package com.example.commentsapp.presentation.view.fragments
 
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.widget.TextViewCompat.setCompoundDrawablesRelativeWithIntrinsicBounds
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -12,9 +14,10 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.commentsapp.R
-import com.example.commentsapp.presentation.RemoteConfigUtils
-import com.example.commentsapp.presentation.adapter.CommentAdapter
+import com.example.commentsapp.RemoteConfigUtils
 import com.example.commentsapp.databinding.FragmentCommentsBinding
+import com.example.commentsapp.presentation.model.CommentUiState
+import com.example.commentsapp.presentation.view.adapter.CommentAdapter
 import com.example.commentsapp.presentation.viewmodel.CommentViewModel
 import kotlinx.coroutines.launch
 import logcat.logcat
@@ -73,15 +76,26 @@ class CommentsFragment : Fragment() {
     private fun observeComments() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                commentsViewModel.comments.collect { comments ->
-                    logcat("CommentsFragment - getComments") { "comments => ${comments.size}" }
-                    if (comments.isEmpty()) {
-                        binding.noCommentsTextView.visibility = View.VISIBLE
-                    } else {
-                        binding.noCommentsTextView.visibility = View.GONE
-                        commentAdapter = CommentAdapter(comments)
+                commentsViewModel.uiState.collect { state ->
+                    when(state){
+                        is CommentUiState.Loading ->{
 
-                        binding.commentsRecyclerView.adapter = commentAdapter
+                        }
+                        is CommentUiState.NoComments ->{
+                            binding.noCommentsTextView.visibility = View.VISIBLE
+                        }
+                        is CommentUiState.Error ->{
+                            val errorMsg = state.error
+                            binding.noCommentsTextView.visibility = View.VISIBLE
+                            binding.noCommentsTextView.text = errorMsg
+                        }
+                        is CommentUiState.Success ->{
+                            val comments = state.data
+                            binding.noCommentsTextView.visibility = View.GONE
+                            commentAdapter = CommentAdapter(comments)
+
+                            binding.commentsRecyclerView.adapter = commentAdapter
+                        }
                     }
                 }
             }
@@ -106,7 +120,7 @@ class CommentsFragment : Fragment() {
             val btnColor = RemoteConfigUtils.getButtonColor()
             val isNotes = RemoteConfigUtils.getIsNotes()
 
-            titleTextView.text = title
+//            titleTextView.text = title
             addCommentsBtn.text = btnText
             addCommentsBtn.setBackgroundColor(Color.parseColor(btnColor))
             setTitleIcon(isNotes)
@@ -116,12 +130,12 @@ class CommentsFragment : Fragment() {
     private fun setTitleIcon(isNotes: Boolean) {
         val notesDrawable = requireContext().getDrawable(R.drawable.ic_baseline_note_24)
         val commentsDrawable = requireContext().getDrawable(R.drawable.ic_baseline_comment_24)
-        binding.titleTextView.apply {
-            if (isNotes) {
-                setCompoundDrawablesRelativeWithIntrinsicBounds(notesDrawable, null, null, null)
-            } else {
-                setCompoundDrawablesRelativeWithIntrinsicBounds(commentsDrawable, null, null, null)
-            }
-        }
+//        binding.titleTextView.apply {
+//            if (isNotes) {
+//                setCompoundDrawablesRelativeWithIntrinsicBounds(notesDrawable, null, null, null)
+//            } else {
+//                setCompoundDrawablesRelativeWithIntrinsicBounds(commentsDrawable, null, null, null)
+//            }
+//        }
     }
 }

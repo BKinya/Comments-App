@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.commentsapp.domain.model.Comment
 import com.example.commentsapp.domain.usecases.GetCommentsUseCase
 import com.example.commentsapp.domain.usecases.SaveCommentUseCase
+import com.example.commentsapp.presentation.model.CommentUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -16,19 +17,22 @@ class CommentViewModel(
   private val getCommentsUseCase: GetCommentsUseCase
 ) : ViewModel() {
 
-  private val _comments = MutableStateFlow<List<Comment>>(emptyList())
-  val comments: StateFlow<List<Comment>>
-    get() = _comments
+  private val _uiState = MutableStateFlow<CommentUiState>(CommentUiState.NoComments)
+  val uiState: StateFlow<CommentUiState>
+    get() = _uiState
 
   fun getComments() {
     viewModelScope.launch {
       val result = getCommentsUseCase.getComments()
       result.catch {
             logcat("CommentViewModel - getComments") { "Exception ${it.message}" }
+        _uiState.value = CommentUiState.Error(error = it.message ?: "Something went wrong!")
       }
-        .collect {
-          logcat("CommentViewModel - getComments") { "comments => ${it.size}" }
-          _comments.value = it
+        .collect {comments ->
+          logcat("CommentViewModel - getComments") { "comments => ${comments.size}" }
+          if (!comments.isEmpty()){
+            _uiState.value = CommentUiState.Success(data = comments)
+          }
         }
     }
   }
