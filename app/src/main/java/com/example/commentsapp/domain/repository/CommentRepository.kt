@@ -7,4 +7,8 @@ interface CommentRepository {
   suspend fun saveComment(message: String)
 
   fun getComments(): Flow<List<Comment>>
+
+  suspend fun editComment(comment: Comment)
+
+  suspend fun deleteComment(id: Int)
 }

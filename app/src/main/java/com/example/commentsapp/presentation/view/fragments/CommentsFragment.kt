@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.commentsapp.R
 import com.example.commentsapp.RemoteConfigUtils
 import com.example.commentsapp.databinding.FragmentCommentsBinding
+import com.example.commentsapp.presentation.intent.CommentIntent
 import com.example.commentsapp.presentation.model.CommentUiState
 import com.example.commentsapp.presentation.view.adapter.CommentAdapter
 import com.example.commentsapp.presentation.viewmodel.CommentViewModel
@@ -45,10 +46,9 @@ class CommentsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         layoutManager = LinearLayoutManager(requireContext())
         binding.commentsRecyclerView.layoutManager = layoutManager
-        setAddCommentsClicked()
         getComments()
         observeComments()
-        setUpFirebaseRemoteConfig()
+        setAddCommentsClicked()
 //        fetchRemoteConfigs()
     }
 
@@ -61,6 +61,9 @@ class CommentsFragment : Fragment() {
     private fun setAddCommentsClicked() {
         binding.addCommentsBtn.setOnClickListener {
             gotToEnterComments()
+//            lifecycleScope.launch{ TODO: Fix.. When?
+//                commentsViewModel.commentIntent.send(CommentIntent.NavigateToAddComment)
+//            }
         }
     }
 
@@ -70,7 +73,9 @@ class CommentsFragment : Fragment() {
     }
 
     private fun getComments() {
-        commentsViewModel.getComments()
+        lifecycleScope.launch{
+            commentsViewModel.commentIntent.send(CommentIntent.FetchComments)
+        }
     }
 
     private fun observeComments() {
@@ -79,7 +84,6 @@ class CommentsFragment : Fragment() {
                 commentsViewModel.uiState.collect { state ->
                     when(state){
                         is CommentUiState.Loading ->{
-
                         }
                         is CommentUiState.NoComments ->{
                             binding.noCommentsTextView.visibility = View.VISIBLE

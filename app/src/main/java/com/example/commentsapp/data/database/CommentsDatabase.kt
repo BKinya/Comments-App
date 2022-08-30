@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.commentsapp.data.dao.CommentsDao
-import com.example.dataLocal.entities.CommentsModel
+import com.example.commentsapp.data.entities.CommentsModel
 
 @Database(
   entities = [CommentsModel::class],

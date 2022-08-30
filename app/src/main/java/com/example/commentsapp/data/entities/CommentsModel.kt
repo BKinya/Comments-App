@@ -1,4 +1,4 @@
-package com.example.dataLocal.entities
+package com.example.commentsapp.data.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

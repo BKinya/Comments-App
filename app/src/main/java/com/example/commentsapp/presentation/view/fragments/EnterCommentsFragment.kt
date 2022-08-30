@@ -10,10 +10,13 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.commentsapp.RemoteConfigUtils
 import com.example.commentsapp.databinding.FragmentEnterCommentsBinding
+import com.example.commentsapp.presentation.intent.CommentIntent
 import com.example.commentsapp.presentation.viewmodel.CommentViewModel
+import kotlinx.coroutines.launch
 import logcat.logcat
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -31,7 +34,6 @@ class EnterCommentsFragment : Fragment() {
     ): View {
         _binding = FragmentEnterCommentsBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -39,7 +41,6 @@ class EnterCommentsFragment : Fragment() {
 
         setTextChangedListener()
         saveBtnClicked()
-        updateViews()
     }
 
     override fun onDestroyView() {
@@ -56,17 +57,23 @@ class EnterCommentsFragment : Fragment() {
     }
 
     private fun saveBtnClicked() {
-        binding.saveCommentsBtn.setOnClickListener {
+        binding.saveCommentsBtn.setOnClickListener { it ->
             logcat("EnterComments - Save comments") { "Save comments clicked" }
             hideKeyboard(it)
-            if (message != null) {
-                commentViewModel.saveComment(message!!)
+            message?.let { msg ->
+                saveComment(msg)
                 Toast.makeText(requireContext(), "Saving a comment", Toast.LENGTH_LONG).show()
-                goToCommentsScreen()
-            } else {
+                goToCommentsScreen()// TODO: Extract this to an intent
+            } ?: run {
                 Toast.makeText(requireContext(), "Comment cannot be empty", Toast.LENGTH_LONG)
                     .show()
             }
+        }
+    }
+
+    private fun saveComment(message: String) {
+        lifecycleScope.launch {
+            commentViewModel.commentIntent.send(CommentIntent.SaveComment(message))
         }
     }
 
