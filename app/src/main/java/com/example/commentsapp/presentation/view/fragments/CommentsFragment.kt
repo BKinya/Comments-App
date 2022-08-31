@@ -5,8 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.widget.TextViewCompat.setCompoundDrawablesRelativeWithIntrinsicBounds
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -21,7 +19,6 @@ import com.example.commentsapp.presentation.model.CommentUiState
 import com.example.commentsapp.presentation.view.adapter.CommentAdapter
 import com.example.commentsapp.presentation.viewmodel.CommentViewModel
 import kotlinx.coroutines.launch
-import logcat.logcat
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CommentsFragment : Fragment() {
@@ -46,9 +43,9 @@ class CommentsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         layoutManager = LinearLayoutManager(requireContext())
         binding.commentsRecyclerView.layoutManager = layoutManager
-        getComments()
+        fetchComments()
         observeComments()
-        setAddCommentsClicked()
+        onAddCommentsBtnClicked()
 //        fetchRemoteConfigs()
     }
 
@@ -58,12 +55,9 @@ class CommentsFragment : Fragment() {
     }
 
 
-    private fun setAddCommentsClicked() {
+    private fun onAddCommentsBtnClicked() {
         binding.addCommentsBtn.setOnClickListener {
             gotToEnterComments()
-//            lifecycleScope.launch{ TODO: Fix.. When?
-//                commentsViewModel.commentIntent.send(CommentIntent.NavigateToAddComment)
-//            }
         }
     }
 
@@ -72,7 +66,7 @@ class CommentsFragment : Fragment() {
         findNavController().navigate(directions)
     }
 
-    private fun getComments() {
+    private fun fetchComments() {
         lifecycleScope.launch{
             commentsViewModel.commentIntent.send(CommentIntent.FetchComments)
         }
@@ -83,8 +77,7 @@ class CommentsFragment : Fragment() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 commentsViewModel.uiState.collect { state ->
                     when(state){
-                        is CommentUiState.Loading ->{
-                        }
+                        is CommentUiState.Loading ->{}
                         is CommentUiState.NoComments ->{
                             binding.noCommentsTextView.visibility = View.VISIBLE
                         }

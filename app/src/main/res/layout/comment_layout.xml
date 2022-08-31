@@ -10,7 +10,8 @@
   android:backgroundTint="@color/snow">
   <androidx.constraintlayout.widget.ConstraintLayout
       android:layout_width="match_parent"
-      android:layout_height="wrap_content">
+      android:layout_height="wrap_content"
+      android:paddingTop="16dp">
     <TextView
         android:id="@+id/commentTextView"
         android:layout_width="match_parent"

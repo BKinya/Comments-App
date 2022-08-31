@@ -6,6 +6,7 @@ import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.commentsapp.domain.model.Comment
 import com.example.commentsapp.domain.repository.CommentRepository
+import com.example.commentsapp.presentation.intent.AddCommentsIntent
 import com.example.commentsapp.presentation.intent.CommentIntent
 import com.example.commentsapp.presentation.model.CommentUiState
 import kotlinx.coroutines.channels.Channel
@@ -37,14 +38,9 @@ class CommentViewModel(
             commentIntent.consumeAsFlow().collect { intent ->
                 when (intent) {
                     is FetchComments -> getComments()
-                    is SaveComment -> saveComment(intent)
                     is DeleteComment -> deleteComment(intent)
                     is EditComment -> editComment(intent)
-                    is NavigateToAddComment -> {
-
-                    }
                 }
-
             }
         }
     }
@@ -65,12 +61,7 @@ class CommentViewModel(
         }
     }
 
-    private fun saveComment(intent: CommentIntent) {
-        val message = (intent as SaveComment).comment
-        viewModelScope.launch {
-            commentRepository.saveComment(message)
-        }
-    }
+
 
     private fun deleteComment(intent: CommentIntent) {
         val id = (intent as DeleteComment).id
@@ -84,9 +75,5 @@ class CommentViewModel(
         viewModelScope.launch {
             commentRepository.editComment(comment)
         }
-    }
-    private fun navigateToEnterComments() {
-        val directions = CommentsFragmentDirections.actionFirstFragmentToSecondFragment()
-       // findNavController().navigate(directions) TODO: How should I then handle this navigation
     }
 }

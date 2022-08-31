@@ -14,8 +14,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.commentsapp.RemoteConfigUtils
 import com.example.commentsapp.databinding.FragmentEnterCommentsBinding
-import com.example.commentsapp.presentation.intent.CommentIntent
-import com.example.commentsapp.presentation.viewmodel.CommentViewModel
+import com.example.commentsapp.presentation.intent.AddCommentsIntent
+import com.example.commentsapp.presentation.viewmodel.AddCommentViewModel
 import kotlinx.coroutines.launch
 import logcat.logcat
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -25,7 +25,7 @@ class EnterCommentsFragment : Fragment() {
 
     private var _binding: FragmentEnterCommentsBinding? = null
     private val binding get() = _binding!!
-    private val commentViewModel: CommentViewModel by viewModel()
+    private val addCommentsViewModel: AddCommentViewModel by viewModel()
     private var message: String? = null
 
     override fun onCreateView(
@@ -57,13 +57,12 @@ class EnterCommentsFragment : Fragment() {
     }
 
     private fun saveBtnClicked() {
-        binding.saveCommentsBtn.setOnClickListener { it ->
+        binding.saveCommentsBtn.setOnClickListener {
             logcat("EnterComments - Save comments") { "Save comments clicked" }
             hideKeyboard(it)
             message?.let { msg ->
                 saveComment(msg)
-                Toast.makeText(requireContext(), "Saving a comment", Toast.LENGTH_LONG).show()
-                goToCommentsScreen()// TODO: Extract this to an intent
+                goToCommentsScreen()
             } ?: run {
                 Toast.makeText(requireContext(), "Comment cannot be empty", Toast.LENGTH_LONG)
                     .show()
@@ -73,7 +72,7 @@ class EnterCommentsFragment : Fragment() {
 
     private fun saveComment(message: String) {
         lifecycleScope.launch {
-            commentViewModel.commentIntent.send(CommentIntent.SaveComment(message))
+            addCommentsViewModel.addCommentsIntent.send(AddCommentsIntent.SaveComment(message))
         }
     }
 
