@@ -17,7 +17,11 @@ import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.launch
 import logcat.logcat
 import com.example.commentsapp.presentation.intent.CommentIntent.*
+import com.example.commentsapp.presentation.util.ViewStateErrorEvent
 import com.example.commentsapp.presentation.view.fragments.CommentsFragmentDirections
+import kotlinx.coroutines.delay
+import org.koin.core.KoinApplication.Companion.init
+import java.lang.Exception
 
 class CommentViewModel(
     private val commentRepository: CommentRepository
@@ -28,6 +32,9 @@ class CommentViewModel(
     private val _uiState = MutableStateFlow<CommentUiState>(CommentUiState.NoComments)
     val uiState: StateFlow<CommentUiState>
         get() = _uiState
+
+    private var _errorEvent: ViewStateErrorEvent? = null
+    val errorEvent get()  = _errorEvent
 
     init {
         handleIntent()
@@ -47,20 +54,21 @@ class CommentViewModel(
 
     private fun getComments() {
         viewModelScope.launch {
-            val result = commentRepository.getComments()
-            result.catch {
-                logcat("CommentViewModel - getComments") { "Exception ${it.message}" }
-                _uiState.value = CommentUiState.Error(error = it.message ?: "Something went wrong!")
-            }
-                .collect { comments ->
-                    logcat("CommentViewModel - getComments") { "comments => ${comments.size}" }
-                    if (comments.isNotEmpty()) {
-                        _uiState.value = CommentUiState.Success(data = comments)
+            try {
+                val result = commentRepository.getComments()
+                result
+                    .collect { comments ->
+                        logcat("CommentViewModel - getComments") { "comments => ${comments.size}" }
+                        if (comments.isNotEmpty()) {
+                            _uiState.value = CommentUiState.Success(data = comments)
+                        }
                     }
-                }
+            } catch (e: Exception) {
+                logcat("CommentViewModel - getComments") { "Exception ${e.message}" }
+                _errorEvent = ViewStateErrorEvent(payload = e)
+            }
         }
     }
-
 
 
     private fun deleteComment(intent: CommentIntent) {
