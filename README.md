@@ -2,7 +2,7 @@
 
 An android app to post comments. You can also see your comments.
 
-<img src="https://github.com/BKinya/Comments-App/blob/master/img/add-comments.png" width="200" alt="Enter Comments">&emsp;&emsp;<img src="https://github.com/BKinya/Comments-App/blob/master/img/comments.png" width="200" alt="Comments list">
+<img src="https://github.com/BKinya/Comments-App/blob/master/img/add-comment.png" width="200" alt="Enter Comments">&emsp;&emsp;<img src="https://github.com/BKinya/Comments-App/blob/master/img/comments-lits%20.png" width="200" alt="Comments list">
 
 The app is implemented using MVI(Model - View - Intent) Architecture. 
 
