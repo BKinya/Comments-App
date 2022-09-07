@@ -1,4 +1,4 @@
-package com.example.dataLocal.database
+package com.example.commentsapp.data.database
 
 import android.content.Context
 import androidx.room.Database
@@ -12,23 +12,5 @@ import com.example.commentsapp.data.entities.CommentsModel
   version = 1
 )
 abstract class CommentsDatabase : RoomDatabase() {
-
-  companion object {
-    @Volatile
-    private var INSTANCE: CommentsDatabase? = null
-
-    fun getinstance(context: Context): CommentsDatabase {
-      return INSTANCE ?: synchronized(this) {
-        val instance = Room.databaseBuilder(
-          context.applicationContext,
-          CommentsDatabase::class.java,
-          "comments_database"
-        ).build()
-        INSTANCE = instance
-        instance
-      }
-    }
-  }
-
   abstract fun commentsDao(): CommentsDao
 }
