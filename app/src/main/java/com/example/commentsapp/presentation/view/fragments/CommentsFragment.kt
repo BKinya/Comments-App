@@ -2,7 +2,6 @@ package com.example.commentsapp.presentation.view.fragments
 
 import android.graphics.Color
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
