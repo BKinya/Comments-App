@@ -2,26 +2,16 @@ package com.example.commentsapp.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
-import androidx.navigation.fragment.findNavController
-import com.example.commentsapp.domain.model.Comment
 import com.example.commentsapp.domain.repository.CommentRepository
-import com.example.commentsapp.presentation.intent.AddCommentsIntent
 import com.example.commentsapp.presentation.intent.CommentIntent
+import com.example.commentsapp.presentation.intent.CommentIntent.*
 import com.example.commentsapp.presentation.model.CommentUiState
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.launch
 import logcat.logcat
-import com.example.commentsapp.presentation.intent.CommentIntent.*
-import com.example.commentsapp.presentation.util.ViewStateErrorEvent
-import com.example.commentsapp.presentation.view.fragments.CommentsFragmentDirections
-import kotlinx.coroutines.delay
-import org.koin.core.KoinApplication.Companion.init
-import java.lang.Exception
 
 class CommentViewModel(
     private val commentRepository: CommentRepository
@@ -32,9 +22,6 @@ class CommentViewModel(
     private val _uiState = MutableStateFlow<CommentUiState>(CommentUiState.NoComments)
     val uiState: StateFlow<CommentUiState>
         get() = _uiState
-
-    private var _errorEvent: ViewStateErrorEvent? = null
-    val errorEvent get()  = _errorEvent
 
     init {
         handleIntent()
@@ -65,7 +52,7 @@ class CommentViewModel(
                     }
             } catch (e: Exception) {
                 logcat("CommentViewModel - getComments") { "Exception ${e.message}" }
-                _errorEvent = ViewStateErrorEvent(payload = e)
+                _uiState.value  = CommentUiState.Error(e.message ?: "Something went wrong!")
             }
         }
     }

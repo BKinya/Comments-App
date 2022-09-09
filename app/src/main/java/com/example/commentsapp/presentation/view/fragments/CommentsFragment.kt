@@ -48,7 +48,6 @@ class CommentsFragment : Fragment() {
         fetchComments()
         observeComments()
         onAddCommentsBtnClicked()
-        consumeError()
 //        fetchRemoteConfigs()
     }
 
@@ -95,17 +94,13 @@ class CommentsFragment : Fragment() {
 
                             binding.commentsRecyclerView.adapter = commentAdapter
                         }
+                        is CommentUiState.Error ->{
+                            binding.noCommentsTextView.visibility = View.VISIBLE
+                            binding.noCommentsTextView.text = state.errorMsg
+                        }
                     }
                 }
             }
-        }
-    }
-
-
-    private fun consumeError(){
-        commentsViewModel.errorEvent?.consume {
-            Toast.makeText(requireContext(), "${it.message}", Toast.LENGTH_SHORT).show()
-
         }
     }
 
